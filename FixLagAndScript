@@ -1,0 +1,59 @@
+-- Tạo ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "ThankYouGui"
+gui.ResetOnSpawn = false
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Nền (background image)
+local background = Instance.new("ImageLabel")
+background.Size = UDim2.new(0, 500, 0, 200)
+background.Position = UDim2.new(0.5, -250, 0.5, -100)
+background.BackgroundTransparency = 1
+background.Image = "rbxassetid://11818627075"
+background.Parent = gui
+
+-- Văn bản cảm ơn
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 0.6, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "🔥Thank you for using the script🔥"
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextStrokeTransparency = 0.5
+textLabel.TextScaled = true
+textLabel.Font = Enum.Font.GothamBold
+textLabel.Parent = background
+
+-- Đếm ngược
+local countdownLabel = Instance.new("TextLabel")
+countdownLabel.Size = UDim2.new(1, 0, 0.4, 0)
+countdownLabel.Position = UDim2.new(0, 0, 0.6, 0)
+countdownLabel.BackgroundTransparency = 1
+countdownLabel.Text = "5"
+countdownLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+countdownLabel.TextStrokeTransparency = 0.5
+countdownLabel.TextScaled = true
+countdownLabel.Font = Enum.Font.GothamBold
+countdownLabel.Parent = background
+
+-- Nhạc nền
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://16190783444"
+sound.Volume = 1
+sound.Looped = false
+sound.Parent = game.SoundService
+sound:Play()
+
+-- Đếm ngược + tải 2 script
+coroutine.wrap(function()
+	for i = 5, 1, -1 do
+		countdownLabel.Text = tostring(i)
+		wait(1)
+	end
+	sound:Stop()
+	gui:Destroy()
+
+	-- Bật cả 2 script
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Standawakeningaa/Key/refs/heads/main/ZombieHub"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Standawakeningaa/Key/refs/heads/main/FixLagStandAwakening"))()
+end)()
